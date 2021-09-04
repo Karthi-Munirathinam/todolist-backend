@@ -1,11 +1,11 @@
 import express from "express";
 import cors from 'cors';
 import mongodb from 'mongodb';
-
+import dotenv from 'dotenv/config';
 // initiate Express
 const app = express();
 const mongoClient = mongodb.MongoClient;
-const MONGO_URL = "mongodb://localhost:27017"
+const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 5000;
 //MiddleWares
 app.use(express.json());
@@ -19,7 +19,7 @@ app.get('/', async (req, res) => {
     try {
         let client = await mongoClient.connect(MONGO_URL);
         const db = client.db('todo-app');
-        const data = await db.collection('tasks').find({ }).toArray();
+        const data = await db.collection('tasks').find({}).toArray();
         await client.close();
         res.json(data);
     } catch (error) {

@@ -1,2 +1,3 @@
 node_modules
 backendworkspace.code-workspace
+.env
